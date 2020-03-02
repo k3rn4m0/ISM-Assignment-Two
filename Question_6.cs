@@ -4,55 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISM_Assignment_2
+namespace ConsoleAp
 {
-    class Question_1
+    class Class1
     {
         static void Main(string[] args)
         {
             Console.WriteLine(" Question 1");
-            // Creating list with required numbers and setting target number
-
-            int[] l1 = new int[] { 1, 2, 2, 2, 2, 3, 4, 7, 8, 8 };
-            int target = 8;
-            List<int> r = TargetRange(l1, target);
-            foreach (int a in r)
-            {
-                Console.WriteLine("Output " + a);
-            }
-
+            // Setting up the array to be searched on and target value
+            string[] old = new string[] { "a", "b", "c", "d", "a"};
+            int k = 9;
+            Console.WriteLine(TargetRange(old, k));
             Console.ReadLine();
         }
-        public static List<int> TargetRange(int[] arr, int x)
+        public static bool TargetRange(string[] arr, int x)
         {
-            int n = arr.Length;
-            int first = -1, last = -1;
-            // Setting n as the length of the array and first and last values
-
-            // Logic is to to during each iteration, check from the beginning and end for the target value
-            for (int i = 0; i < n; i++)
+            // Creating the dictionary to keep track of count of each character
+            Dictionary<string, int> arrDict = new Dictionary<string, int>();
+            // Loop to make the dictionary and  check for the condition
+            for (int i = 0; i < arr.Length; i++)
             {
-                if (x != arr[i])
-                    continue;
-                if (first == -1)
-                    first = i;
-                last = i;
+                if (arrDict.ContainsKey(arr[i]))
+                {
+                    if (Math.Abs(i - arrDict[arr[i]]) <=x)
+                    {
+                        // True is returned if the condition is met
+                        return true;
+                    }
+                }
+                else
+                {
+                    
+                    arrDict.Add(new KeyValuePair<string, int>(arr[i], i));
+                }
             }
-            //  Craeting an object and adding the required first and last values. Returning them at the end
-            if (first != -1)
-            {
-                var obj = new List<int>();
-                obj.Add(first);
-                obj.Add(last);
-                return (obj);
-            }
-            else
-            {
-                var obj = new List<int>();
-                obj.Add(first);
-                obj.Add(last);
-                return (obj);
-            }
+            return false
+            // False is returned if the condition is never met
         }
     }
 }
